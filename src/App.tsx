@@ -5,14 +5,14 @@ import Home from './pages/Home'
 import Pagina from './pages/Pagina'
 import MinhaColheita from './pages/MinhaColheita'
 import Tarefas from './pages/Tarefas'
+import Vendas from './pages/Vendas'
 
 const paginas = [
   { nome: 'Sobre', rota: '/sobre', descricao: 'Conheça o ColheitaSmart.' },
   { nome: 'Integrantes', rota: '/integrantes', descricao: 'Conheça nossa equipe.' },
   { nome: 'FAQ', rota: '/faq', descricao: 'Perguntas frequentes.' },
   { nome: 'Contato', rota: '/contato', descricao: 'Entre em contato.' },
-  { nome: 'Vender minha Colheita', rota: '/vendas', descricao: 'Simule suas vendas.' },
-  { nome: 'Meu Dinheiro', rota: '/financeiro', descricao: 'Acompanhe seus resultados.' },
+  { nome: 'Carteira', rota: '/financeiro', descricao: 'Acompanhe suas finanças.' },
 ]
 
 export default function App() {
@@ -25,8 +25,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/colheitas" element={<MinhaColheita />} />
           <Route path="/tarefas" element={<Tarefas />} />
+          <Route path="/vendas" element={<Vendas />} />
 
-          {paginas.map((pagina) => (
+          {paginas.map(pagina => (
             <Route
               key={pagina.rota}
               path={pagina.rota}

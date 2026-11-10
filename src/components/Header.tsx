@@ -1,9 +1,12 @@
 
 import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Sprout, Menu, X, ArrowUpRight } from 'lucide-react'
+import {
+  Sprout, Menu, X, ArrowUpRight,
+  House
+} from 'lucide-react'
 
-const links = [
+const linksInstitucionais = [
   { nome: 'Início', rota: '/' },
   { nome: 'Sobre', rota: '/sobre' },
   { nome: 'Integrantes', rota: '/integrantes' },
@@ -14,8 +17,8 @@ const links = [
 const linksPainel = [
   { nome: 'Minha Colheita', rota: '/colheitas' },
   { nome: 'O que fazer hoje?', rota: '/tarefas' },
-  { nome: 'Vender', rota: '/vendas' },
-  { nome: 'Meu Dinheiro', rota: '/financeiro' },
+  { nome: 'Vender Colheita', rota: '/vendas' },
+  { nome: 'Carteira', rota: '/financeiro' },
 ]
 
 export default function Header() {
@@ -23,21 +26,22 @@ export default function Header() {
   const { pathname } = useLocation()
 
   const estaNoPainel = linksPainel.some(
-    (link) =>
+    link =>
       pathname === link.rota ||
       pathname.startsWith(`${link.rota}/`)
   )
 
-  const navegacao = estaNoPainel ? linksPainel : links
+  const navegacao = estaNoPainel
+    ? linksPainel
+    : linksInstitucionais
 
   return (
     <header className="sticky top-0 z-50 border-b border-green-100 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
-
         <Link
           to="/"
           onClick={() => setAberto(false)}
-          className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#073B2C]"
+          className="flex shrink-0 items-center gap-2 text-xl font-extrabold tracking-tight text-[#073B2C]"
         >
           <span className="rounded-xl bg-[#073B2C] p-2 text-[#B8F34B]">
             <Sprout size={24} />
@@ -45,19 +49,14 @@ export default function Header() {
           ColheitaSmart
         </Link>
 
-        <nav
-          className="hidden items-center gap-7 lg:flex"
-          aria-label="Navegação principal"
-        >
-          {navegacao.map((link) => (
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Navegação principal">
+          {navegacao.map(link => (
             <NavLink
               key={link.rota}
               to={link.rota}
               className={({ isActive }) =>
                 `text-sm font-semibold transition hover:text-green-700 ${
-                  isActive
-                    ? 'text-green-700'
-                    : 'text-slate-600'
+                  isActive ? 'text-green-700' : 'text-slate-600'
                 }`
               }
             >
@@ -66,22 +65,19 @@ export default function Header() {
           ))}
         </nav>
 
-        {!estaNoPainel && (
+        {!estaNoPainel ? (
           <Link
             to="/colheitas"
-            className="hidden items-center gap-2 rounded-xl bg-[#073B2C] px-5 py-3 text-sm font-bold text-white transition hover:bg-green-800 sm:inline-flex"
+            className="hidden shrink-0 items-center gap-2 rounded-xl bg-[#073B2C] px-5 py-3 text-sm font-bold text-white hover:bg-green-800 sm:inline-flex"
           >
-            Acessar painel
-            <ArrowUpRight size={18} />
+            Acessar painel <ArrowUpRight size={18} />
           </Link>
-        )}
-
-        {estaNoPainel && (
+        ) : (
           <Link
             to="/"
-            className="hidden items-center gap-2 rounded-xl border border-green-200 px-5 py-3 text-sm font-semibold text-[#073B2C] transition hover:bg-green-50 sm:inline-flex"
+            className="hidden shrink-0 items-center gap-2 rounded-xl border border-green-200 px-4 py-3 text-sm font-semibold text-[#073B2C] hover:bg-green-50 xl:inline-flex"
           >
-            Voltar ao início
+            <House size={17} /> Início
           </Link>
         )}
 
@@ -97,16 +93,8 @@ export default function Header() {
       </div>
 
       {aberto && (
-        <nav
-          className="border-t border-green-100 bg-white px-6 py-4 lg:hidden"
-          aria-label="Menu móvel"
-        >
-          {[
-            ...navegacao,
-            ...(estaNoPainel
-              ? [{ nome: 'Voltar ao início', rota: '/' }]
-              : [{ nome: 'Acessar painel', rota: '/colheitas' }]),
-          ].map((link) => (
+        <nav className="border-t border-green-100 bg-white px-6 py-4 lg:hidden">
+          {navegacao.map(link => (
             <NavLink
               key={link.rota}
               to={link.rota}
@@ -122,6 +110,14 @@ export default function Header() {
               {link.nome}
             </NavLink>
           ))}
+
+          <Link
+            to={estaNoPainel ? '/' : '/colheitas'}
+            onClick={() => setAberto(false)}
+            className="mt-3 block rounded-lg bg-[#073B2C] px-4 py-3 text-center font-bold text-white"
+          >
+            {estaNoPainel ? 'Voltar ao início' : 'Acessar painel'}
+          </Link>
         </nav>
       )}
     </header>
