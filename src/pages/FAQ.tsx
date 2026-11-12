@@ -1,3 +1,46 @@
+const perguntas = [
+  {
+    id: 'sobre',
+    titulo: 'O que é o ColheitaSmart?',
+    resposta: 'É uma aplicação web para organizar e acompanhar produtos depois da colheita.',
+  },
+  {
+    id: 'publico',
+    titulo: 'Para quem o ColheitaSmart foi pensado?',
+    resposta: 'Para pequenos agricultores e produtores rurais que querem organizar melhor sua produção.',
+  },
+  {
+    id: 'lotes',
+    titulo: 'Para que serve a página Minha Colheita?',
+    resposta: 'Essa área foi pensada para reunir os lotes e facilitar a consulta ao produto e à quantidade disponível.',
+  },
+  {
+    id: 'desperdicio',
+    titulo: 'Como o projeto pode ajudar a reduzir o desperdício?',
+    resposta: 'Ao acompanhar os lotes, o produtor pode identificar quais alimentos precisam de atenção primeiro e planejar o destino deles.',
+  },
+  {
+    id: 'tarefas',
+    titulo: 'O que vou encontrar na área de Tarefas?',
+    resposta: 'A proposta dessa área é ajudar o produtor a organizar as ações do dia e priorizar os lotes que precisam de atenção.',
+  },
+  {
+    id: 'vendas',
+    titulo: 'Para que serve a área de Vendas?',
+    resposta: 'Essa área foi pensada para apoiar o planejamento das vendas, com simulação de valores e preparação de ofertas.',
+  },
+  {
+    id: 'carteira',
+    titulo: 'O que é a Carteira?',
+    resposta: 'É a área destinada ao acompanhamento financeiro da produção, que ainda está em desenvolvimento.',
+  },
+  {
+    id: 'demonstracao',
+    titulo: 'Os dados da página inicial são reais?',
+    resposta: 'Os dados da página inicial são exemplos que demonstram como a aplicação pode apresentar as informações da colheita.',
+  },
+]
+
 export default function FAQ() {
   return (
     <main className="min-h-screen bg-green-50 px-6 py-16 text-slate-800">
@@ -17,26 +60,17 @@ export default function FAQ() {
         </header>
 
         <section className="mt-12 space-y-4">
-          <article className="rounded-xl bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold">
-              O que é o ColheitaSmart?
-            </h2>
-
-            <p className="mt-3 text-slate-600">
-              Uma plataforma para organizar e acompanhar
-              produtos depois da colheita.
-            </p>
-          </article>
+          {perguntas.map((pergunta) => (
+            <article
+              key={pergunta.id}
+              className="rounded-xl bg-white p-6 shadow-sm"
+            >
+              <h2 className="text-lg font-semibold">{pergunta.titulo}</h2>
+              <p className="mt-3 text-slate-600">{pergunta.resposta}</p>
+            </article>
+          ))}
         </section>
-
-        {/* COMMIT 2: adicionar perguntas */}
-
-        {/* COMMIT 3: implementar accordion com useState */}
-
-        {/* COMMIT 4: adicionar busca e filtros */}
-
-        {/* COMMIT 5: melhorar responsividade e acessibilidade */}
       </div>
     </main>
-  );
+  )
 }
