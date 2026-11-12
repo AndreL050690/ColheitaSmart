@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const perguntas = [
   {
     id: 'sobre',
@@ -42,6 +44,8 @@ const perguntas = [
 ]
 
 export default function FAQ() {
+  const [perguntaAberta, setPerguntaAberta] = useState<string | null>(null)
+
   return (
     <main className="min-h-screen bg-green-50 px-6 py-16 text-slate-800">
       <div className="mx-auto max-w-4xl">
@@ -59,16 +63,39 @@ export default function FAQ() {
           </p>
         </header>
 
-        <section className="mt-12 space-y-4">
-          {perguntas.map((pergunta) => (
-            <article
-              key={pergunta.id}
-              className="rounded-xl bg-white p-6 shadow-sm"
-            >
-              <h2 className="text-lg font-semibold">{pergunta.titulo}</h2>
-              <p className="mt-3 text-slate-600">{pergunta.resposta}</p>
-            </article>
-          ))}
+        <section className="mt-12 space-y-4" aria-label="Perguntas e respostas">
+          {perguntas.map((pergunta) => {
+            const aberta = perguntaAberta === pergunta.id
+            const idResposta = `faq-resposta-${pergunta.id}`
+
+            return (
+              <article
+                key={pergunta.id}
+                className="rounded-xl bg-white p-6 shadow-sm"
+              >
+                <h2>
+                  <button
+                    type="button"
+                    aria-expanded={aberta}
+                    aria-controls={idResposta}
+                    className="flex w-full items-center justify-between gap-4 text-left text-lg font-semibold"
+                    onClick={() => setPerguntaAberta(aberta ? null : pergunta.id)}
+                  >
+                    <span>{pergunta.titulo}</span>
+                    <span aria-hidden="true">{aberta ? '−' : '+'}</span>
+                  </button>
+                </h2>
+
+                <p
+                  id={idResposta}
+                  hidden={!aberta}
+                  className="mt-3 text-slate-600"
+                >
+                  {pergunta.resposta}
+                </p>
+              </article>
+            )
+          })}
         </section>
       </div>
     </main>
