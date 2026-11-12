@@ -61,6 +61,7 @@ function normalizarTexto(texto: string) {
     .trim()
 }
 
+
 export default function FAQ() {
   const [perguntaAberta, setPerguntaAberta] = useState<string | null>(null)
   const [busca, setBusca] = useState('')
@@ -74,21 +75,26 @@ export default function FAQ() {
     return correspondeCategoria && texto.includes(termo)
   })
 
+  const estiloCampo =
+    'min-w-0 w-full rounded-xl border border-green-200 bg-white px-4 py-3 text-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700'
+
   return (
-    <main className="min-h-screen bg-green-50 px-6 py-16 text-slate-800">
+    <main className="min-h-screen bg-green-50 px-4 py-10 text-slate-800 sm:px-6 sm:py-16">
       <div className="mx-auto max-w-4xl">
         <header className="text-center">
-          <span className="font-semibold text-green-700">CENTRAL DE AJUDA</span>
-          <h1 className="mt-4 text-4xl font-bold md:text-5xl">
+          <span className="text-sm font-semibold tracking-wide text-green-800">
+            CENTRAL DE AJUDA
+          </span>
+          <h1 className="mt-3 text-3xl font-bold text-green-950 sm:text-4xl md:text-5xl">
             Perguntas Frequentes
           </h1>
-          <p className="mt-5 text-slate-600">
+          <p className="mt-4 text-slate-600">
             Encontre respostas sobre o ColheitaSmart.
           </p>
         </header>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
-          <label className="grid gap-2 font-medium">
+        <div className="mt-8 grid gap-4 rounded-2xl border border-green-100 bg-white p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:p-6">
+          <label className="grid min-w-0 gap-2 font-medium text-green-950">
             Buscar na FAQ
             <input
               type="search"
@@ -98,11 +104,11 @@ export default function FAQ() {
                 setPerguntaAberta(null)
               }}
               placeholder="Ex.: colheita ou carteira"
-              className="w-full rounded-lg border border-green-200 bg-white px-4 py-3"
+              className={estiloCampo}
             />
           </label>
 
-          <label className="grid gap-2 font-medium">
+          <label className="grid min-w-0 gap-2 font-medium text-green-950">
             Categoria
             <select
               value={categoria}
@@ -110,7 +116,7 @@ export default function FAQ() {
                 setCategoria(event.target.value)
                 setPerguntaAberta(null)
               }}
-              className="w-full rounded-lg border border-green-200 bg-white px-4 py-3"
+              className={estiloCampo}
             >
               <option value="">Todas as categorias</option>
               {categorias.map((item) => (
@@ -122,13 +128,13 @@ export default function FAQ() {
           </label>
         </div>
 
-        <p className="mt-4 text-sm text-slate-600">
+        <p role="status" className="mt-4 text-sm text-slate-600">
           {perguntasFiltradas.length === 0
             ? 'Nenhuma pergunta encontrada. Tente outro termo ou categoria.'
             : `${perguntasFiltradas.length} de ${perguntas.length} perguntas`}
         </p>
 
-        <section className="mt-6 space-y-4" aria-label="Perguntas e respostas">
+        <section className="mt-4 space-y-3" aria-label="Perguntas e respostas">
           {perguntasFiltradas.map((pergunta) => {
             const aberta = perguntaAberta === pergunta.id
             const idResposta = `faq-resposta-${pergunta.id}`
@@ -136,24 +142,30 @@ export default function FAQ() {
             return (
               <article
                 key={pergunta.id}
-                className="rounded-xl bg-white p-6 shadow-sm"
+                className="rounded-2xl border border-green-100 bg-white shadow-sm"
               >
                 <h2>
                   <button
                     type="button"
                     aria-expanded={aberta}
                     aria-controls={idResposta}
-                    className="flex w-full items-center justify-between gap-4 text-left text-lg font-semibold"
+                    className="flex w-full items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left text-base font-semibold text-green-950 hover:bg-green-50 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-green-700 sm:px-6 sm:text-lg"
                     onClick={() => setPerguntaAberta(aberta ? null : pergunta.id)}
                   >
                     <span>{pergunta.titulo}</span>
-                    <span aria-hidden="true">{aberta ? '−' : '+'}</span>
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 text-xl text-green-700"
+                    >
+                      {aberta ? '−' : '+'}
+                    </span>
                   </button>
                 </h2>
+
                 <p
                   id={idResposta}
                   hidden={!aberta}
-                  className="mt-3 text-slate-600"
+                  className="px-4 pb-5 leading-relaxed text-slate-600 sm:px-6"
                 >
                   {pergunta.resposta}
                 </p>
