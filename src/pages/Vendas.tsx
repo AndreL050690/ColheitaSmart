@@ -2,8 +2,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  Sprout, Plus, ShoppingBasket, Package,
-  CheckCircle2, TrendingUp, Wallet,
+  Sprout, Plus, ShoppingBasket,
+  CheckCircle2, Wallet,
   MessageCircle, Trash2, X, Search,
   ArrowRight, ClipboardList
 } from 'lucide-react'

@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, ArrowUpRight, Sprout, Package,
-  TrendingUp, ShieldCheck, CheckCircle2,
+  TrendingUp, CheckCircle2,
   Leaf, Wallet, ClipboardList, BarChart3
 } from 'lucide-react'
 

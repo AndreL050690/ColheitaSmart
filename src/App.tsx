@@ -6,6 +6,7 @@ import Pagina from './pages/Pagina'
 import MinhaColheita from './pages/MinhaColheita'
 import Tarefas from './pages/Tarefas'
 import Vendas from './pages/Vendas'
+import FAQ from './pages/FAQ'
 
 const paginas = [
   { nome: 'Sobre', rota: '/sobre', descricao: 'Conheça o ColheitaSmart.' },
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/colheitas" element={<MinhaColheita />} />
           <Route path="/tarefas" element={<Tarefas />} />
           <Route path="/vendas" element={<Vendas />} />
+          <Route path="/faq" element={<FAQ />} />
 
           {paginas.map(pagina => (
             <Route
